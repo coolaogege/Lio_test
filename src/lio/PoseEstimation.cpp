@@ -33,6 +33,8 @@ sensor_msgs::NavSatFix gps;
 int pushCount = 0;
 double startTime = 0;
 
+std::string ImuTopic;
+
 nav_msgs::Path laserOdoPath;
 
 /** \brief publish odometry infomation
@@ -621,6 +623,8 @@ int main(int argc, char **argv)
   std::vector<double> vecTlb;
   ros::param::get("~Extrinsic_Tlb", vecTlb);
 
+  ros::param::get("~ImuTopic", ImuTopic);
+
   // set extrinsic matrix between lidar & IMU
   Eigen::Matrix3d R;
   Eigen::Vector3d t;
@@ -641,7 +645,7 @@ int main(int argc, char **argv)
   ros::Subscriber subFullCloud = nodeHandler.subscribe<sensor_msgs::PointCloud2>("/laser_cloud_filtered", 10, fullCallBack);
   ros::Subscriber sub_imu;
   if (IMU_Mode > 0)
-    sub_imu = nodeHandler.subscribe("/imu_data", 2000, imu_callback, ros::TransportHints().unreliable());
+    sub_imu = nodeHandler.subscribe(ImuTopic, 2000, imu_callback, ros::TransportHints().unreliable());
   if (IMU_Mode < 2)
     WINDOWSIZE = 1;
   else

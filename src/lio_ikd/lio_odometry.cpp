@@ -13,6 +13,8 @@ ros::Publisher pubFullLaserCloud;
 tf::StampedTransform laserOdometryTrans;
 tf::TransformBroadcaster *tfBroadcaster;
 
+string ImuTopic;
+
 bool newfullCloud = false;
 
 Eigen::Matrix4d transformAftMapped = Eigen::Matrix4d::Identity();
@@ -624,6 +626,8 @@ int main(int argc, char **argv)
   std::vector<double> vecTlb;
   ros::param::get("~Extrinsic_Tlb", vecTlb);
 
+  ros::param::get("~ImuTopic", ImuTopic);
+
   // set extrinsic matrix between lidar & IMU
   Eigen::Matrix3d R;
   Eigen::Vector3d t;
@@ -644,11 +648,11 @@ int main(int argc, char **argv)
   ros::Subscriber subFullCloud = nodeHandler.subscribe<sensor_msgs::PointCloud2>("/laser_cloud_filtered", 10, fullCallBack);
   ros::Subscriber sub_imu;
   if (IMU_Mode > 0)
-    sub_imu = nodeHandler.subscribe("/imu_data", 2000, imu_callback, ros::TransportHints().unreliable());
+    sub_imu = nodeHandler.subscribe(ImuTopic, 2000, imu_callback, ros::TransportHints().unreliable());
   if (IMU_Mode < 2)
     WINDOWSIZE = 1;
-  // else
-  //   WINDOWSIZE = 20;
+/*  else
+    WINDOWSIZE = 20;*/
 
   pubFullLaserCloud = nodeHandler.advertise<sensor_msgs::PointCloud2>("/full_cloud_mapped", 10);
   pubLaserOdometry = nodeHandler.advertise<nav_msgs::Odometry>("/odometry_mapped", 5);

@@ -1001,7 +1001,12 @@ void Estimator::Estimate(std::list<LidarFrame> &lidarFrameList,
   Eigen::Vector3d exPbl = -1.0 * exRbl * exTlb.topRightCorner(3, 1);
   kdtreeCornerFromLocal->setInputCloud(laserCloudCornerFromLocal);
   kdtreeSurfFromLocal->setInputCloud(laserCloudSurfFromLocal);
-  kdtreeNonFeatureFromLocal->setInputCloud(laserCloudNonFeatureFromLocal);
+
+  //TODO：：modify！
+//  kdtreeNonFeatureFromLocal->setInputCloud(laserCloudNonFeatureFromLocal);
+  if(!laserCloudNonFeatureFromLocal->empty())
+     kdtreeNonFeatureFromLocal->setInputCloud(laserCloudNonFeatureFromLocal);
+
 
   std::unique_lock<std::mutex> locker3(map_manager->mtx_MapManager);
   for (int i = 0; i < 4851; i++)

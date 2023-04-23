@@ -1,0 +1,2 @@
+set(GC_LOAM_MESSAGE_FILES "/home/ya/lio-livox-modify_ws/src/LIO-Livox-modified/msg/cloud_info.msg")
+set(GC_LOAM_SERVICE_FILES "/home/ya/lio-livox-modify_ws/src/LIO-Livox-modified/srv/save_map.srv")

@@ -77,10 +77,10 @@ public:
   void Integration() {}
 
 public:
-  const double acc_n = 0.08;
-  const double gyr_n = 0.004;
-  const double acc_w = 2.0e-4;
-  const double gyr_w = 2.0e-5;
+  const double acc_n = 1.1197412605492375e-02;
+  const double gyr_n = 1.0270904839480961e-02;
+  const double acc_w = 1.1751767903346351e-04;
+  const double gyr_w = 9.1355383994881894e-05;
   constexpr static const double lidar_m = 1.5e-3;
   constexpr static const double gnorm = 1.0; //9.805;
 

@@ -251,7 +251,7 @@ private:
     const float MOV_THRESHOLD = 1.5f;
     float DET_RANGE = 200.f;
 
-   double para_PR[SLIDEWINDOWSIZE][6];
+    double para_PR[SLIDEWINDOWSIZE][6];
     double para_VBias[SLIDEWINDOWSIZE][9];
 
     std::vector<pcl::PointCloud<PointType>::Ptr> laserCloudCornerLast;
